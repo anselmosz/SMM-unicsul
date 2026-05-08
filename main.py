@@ -4,7 +4,7 @@ Simulador de meio de pagamentos
 UNICSUL - 2026 | Programaçao de Computadores
 
 Desenvolvido por:
-Matheus Souza Anselmo
+Matheus Souza Anselmo | Engenharia de Software
 ------
 Aplicar conhecimentos de algoritmos matemáticos e pensamento computacional desenvolvendo um
 simulador de meio de pagamento (SMM) em Python. Para as operações de debito será cobrado 1%
@@ -18,6 +18,7 @@ from datetime import datetime as dt, timedelta as td
 
 # Import das bibliotecas 'os' e 're'
 import os, re
+
 
 # Ok
 def ExibirMenu():
@@ -39,6 +40,9 @@ def ValidarEntrada(opcoes):
     input("Pressione ENTER para limpar a tela e continuar...")
     os.system('cls' if os.name == 'nt' else 'clear')
 
+def limparTela():
+  os.system('cls' if os.name == 'nt' else 'clear')
+
 # To do - Improve
 def InserirValorDaCompra():
   question = True
@@ -46,7 +50,7 @@ def InserirValorDaCompra():
   while question == True:
     valor = input("\nInforme o valor da compra: R$ ").strip().replace(',', '.')
 
-    if valor == "":
+    if valor == "" or float(valor) <= 0 :
       print("\nCampo vazio! É necessário informar um valor")
       input("Pressione ENTER para continuar...")
     elif re.fullmatch(r"\d+(\.\d{1,2})?", valor):
@@ -77,7 +81,7 @@ def InserirParcelas():
 
 # Ok
 def ImprimirRecibo(valor_da_compra, mdr, valor_liq, tipo_opercao):
-  os.system('cls' if os.name == 'nt' else 'clear')
+  limparTela()
   print(f"""\nRecibo da compra\n
 Data da compra: {dt.now().strftime("%d/%m/%Y")}
 Hora da compra: {dt.now().strftime("%H:%M")}
@@ -141,14 +145,14 @@ while sysRun == True:
     DebitoMdr(valorCompra)
 
     input("Pressione ENTER para limpar a tela e continuar...")
-    os.system('cls' if os.name == 'nt' else 'clear')
+    limparTela()
 
   elif entrada == "1":
     valorCompra = InserirValorDaCompra()
     CreditoMdr(valorCompra)
 
     input("Pressione ENTER para limpar a tela e continuar...")
-    os.system('cls' if os.name == 'nt' else 'clear')
+    limparTela()
 
   elif entrada == "2":
     valorCompra = InserirValorDaCompra()
@@ -157,7 +161,7 @@ while sysRun == True:
     CreditoMdrParc(valorCompra, parcelas)
 
     input("Pressione ENTER para limpar a tela e continuar...")
-    os.system('cls' if os.name == 'nt' else 'clear')
+    limparTela()
 
   elif entrada == "9":
     sysRun = False
